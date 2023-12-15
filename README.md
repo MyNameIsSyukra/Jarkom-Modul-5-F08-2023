@@ -241,7 +241,7 @@ iptables -A FORWARD -m recent --name scanner --set -j ACCEPT
 - `-j DROP` jika ada maka akan di blokir
 
 Testing:
-![image](https://github.com/MyNameIsSyukra/Jarkom-Modul-5-F08-2023/assets/90988646/a4a3d82a-5438-4046-8352-bef88ef32117)
+![image](https://github.com/MyNameIsSyukra/Jarkom-Modul-5-F08-2023/assets/90988646/61649cfb-cfda-4796-9910-ddd3771bbbed)
 
 ### No 10
 Karena kepala suku ingin tau paket apa saja yang di-drop, maka di setiap node server dan router ditambahkan logging paket yang di-drop dengan standard syslog level. 
