@@ -221,3 +221,30 @@ Dapat di test dengan mencoba nmap dari Revolte dan juga node lain
 
 <img width="634" alt="image" src="https://github.com/MyNameIsSyukra/Jarkom-Modul-5-F08-2023/assets/85614845/d3b85fb1-754b-4792-940c-07f2033680d5">
 
+### No 9 
+Sadar akan adanya potensial saling serang antar kubu politik, maka WebServer harus dapat secara otomatis memblokir  alamat IP yang melakukan scanning port dalam jumlah banyak (maksimal 20 scan port) di dalam selang waktu 10 menit. 
+(clue: test dengan nmap)
+
+Pada web server `Sein` dan `Stark` ditambah script :
+```
+iptables -N scanner
+
+iptables -A INPUT -m recent --name scanner --update --seconds 600 --hitcount 20 -j DROP
+iptables -A FORWARD -m recent --name scanner --update --seconds 600 --hitcount 20 -j DROP
+
+iptables -A INPUT -m recent --name scanner --set -j ACCEPT
+iptables -A FORWARD -m recent --name scanner --set -j ACCEPT
+```
+- `iptables -N scanner` berfungsi untuk membuat chain baru dengan nama scanner
+- `iptables -A` berguna untuk append rules baru ke chain scanner
+- `-m recent --name scanner --update --seconds 600 --hitcount 20` berguna untuk check setiap apakah sebuah alamat IP berada dalam chain scanner dan telah melakukan 20 upaya scanning dalam 10 menit terakhir
+- `-j DROP` jika ada maka akan di blokir
+
+Testing:
+![image](https://github.com/MyNameIsSyukra/Jarkom-Modul-5-F08-2023/assets/90988646/a4a3d82a-5438-4046-8352-bef88ef32117)
+
+### No 10
+Karena kepala suku ingin tau paket apa saja yang di-drop, maka di setiap node server dan router ditambahkan logging paket yang di-drop dengan standard syslog level. 
+
+
+
